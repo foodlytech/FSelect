@@ -56,7 +56,7 @@ const mapState = (state, props) => {
 }
 
 export default connect(mapState)(
-  class CFSelect extends React.Component {
+  class FSelect extends React.Component {
     render() {
       const { state, stateNot, children, ...props } = this.props
 

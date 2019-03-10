@@ -1,10 +1,10 @@
-# CFSelect [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Stop%20using%20Redux%20connect.%20Use%20CFSelect.&url=https://github.com/CodeFusionTech/CFSelect&hashtags=cfselect,cf-select,selector,redux,connect,react-redux,react,react-native)
+# FSelect [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Stop%20using%20Redux%20connect.%20Use%20FSelect.&url=https://github.com/foodlytech/FSelect&hashtags=fselect,selector,redux,connect,react-redux,react,react-native)
 
 ## Rethinking `connect`
 
-CFSelect abstracts away react-redux's `connect` using the power of render props. By using CFSelect instead of `connect` your code will be cleaner and faster.
+FSelect abstracts away react-redux's `connect` using the power of render props. By using FSelect instead of `connect` your code will be cleaner and faster.
 
-This library is already being used in production at CodeFusion and works with both ReactDOM and React Native.
+This library is already being used in production at Foodly and works with both ReactDOM and React Native.
 
 ## Index
 
@@ -18,13 +18,13 @@ This library is already being used in production at CodeFusion and works with bo
 ## Getting Started
 
 ```sh
-npm i -S cf-select
+npm i -S fselect
 ```
 
 or
 
 ```sh
-yarn add cf-select
+yarn add fselect
 ```
 
 ## Replacing Connect
@@ -44,18 +44,18 @@ class App extends React.Component {
 connect(state => ({ email: state.login.email }))(App)
 ```
 
-Using CFSelect
+Using FSelect
 
 ```jsx
 import React from 'react'
-import CFSelect from 'cf-select'
+import FSelect from 'fselect'
 
 class App extends React.Component {
   render() {
     return (
-      <CFSelect selector={state => state.login.email}>
+      <FSelect selector={state => state.login.email}>
         {email => <span>Welcome {email}</span>}
-      </CFSelect>
+      </FSelect>
     )
   }
 }
@@ -65,13 +65,13 @@ Equivalently you can also write using self closing tag
 
 ```jsx
 import React from 'react'
-import CFSelect from 'cf-select'
+import FSelect from 'fselect'
 
 class App extends React.Component {
   render() {
     return (
       <span>
-        Welcome <CFSelect selector={state => state.login.email} />
+        Welcome <FSelect selector={state => state.login.email} />
       </span>
     )
   }
@@ -82,12 +82,12 @@ Multiple states from Redux using object
 
 ```jsx
 import React from 'react'
-import CFSelect from 'cf-select'
+import FSelect from 'fselect'
 
 class App extends React.Component {
   render() {
     return (
-      <CFSelect
+      <FSelect
         selector={{
           email: state => state.login.email,
           name: state => state.login.name,
@@ -98,7 +98,7 @@ class App extends React.Component {
             Welcome {name} {email}
           </Text>
         )}
-      </CFSelect>
+      </FSelect>
     )
   }
 }
@@ -108,12 +108,12 @@ Multiple states from Redux using array
 
 ```jsx
 import React from 'react'
-import CFSelect from 'cf-select'
+import FSelect from 'fselect'
 
 class App extends React.Component {
   render() {
     return (
-      <CFSelect
+      <FSelect
         selector={[state => state.login.email, state => state.login.name]}
       >
         {([email, name]) => (
@@ -121,7 +121,7 @@ class App extends React.Component {
             Welcome {name} {email}
           </Text>
         )}
-      </CFSelect>
+      </FSelect>
     )
   }
 }
@@ -131,15 +131,15 @@ Equivalently you can just use two self-closing tag
 
 ```jsx
 import React from 'react'
-import CFSelect from 'cf-select'
+import FSelect from 'fselect'
 
 class App extends React.Component {
   render() {
     return (
       <span>
         Welcome
-        <CFSelect selector={state => state.login.name} />
-        <CFSelect selector={state => state.login.email} />
+        <FSelect selector={state => state.login.name} />
+        <FSelect selector={state => state.login.email} />
       </span>
     )
   }
@@ -152,7 +152,7 @@ Using selectors
 import * as selectors from './selectors'
  ...
 return (
-  <CFSelect
+  <FSelect
     selector={{
       email: state => selectors.getEmail(state),
       name: state => selectors.getName(state),
@@ -163,7 +163,7 @@ return (
         Welcome {name} {email}
       </Text>
     )}
-  </CFSelect>
+  </FSelect>
 )
 ```
 
@@ -212,7 +212,7 @@ class A extends React.Component {
 
 ## I need access to redux state during some event (ie. button press)
 
-Again, there is a huge misconception in react community that you need connect or in this case CFSelect to have access to redux state during some event.
+Again, there is a huge misconception in react community that you need connect or in this case FSelect to have access to redux state during some event.
 
 Unless you need to support server-sided rendering, you can import getState directly from the store.
 
@@ -253,7 +253,7 @@ class App extends React.Component {
 }
 ```
 
-You do NOT need connect or CFSelect unless your UI depends on the redux state.
+You do NOT need connect or FSelect unless your UI depends on the redux state.
 
 Similarily, we recommend using selectors so that your UI component isn't coupled to the structure of your redux store.
 
@@ -394,15 +394,15 @@ render() {
 }
 ```
 
-Using CFSelect, you can also do Conditional Element Render. Your element will only render if selector value is truthy
+Using FSelect, you can also do Conditional Element Render. Your element will only render if selector value is truthy
 
 ```jsx
 render() {
   return (
-    <CFSelect selector={this.state.isLoggedIn}>
+    <FSelect selector={this.state.isLoggedIn}>
       <span>Welcome XXX</span>
       <span>You rock!</span>
-    </CFSelect>
+    </FSelect>
   )
 }
 ```
@@ -412,10 +412,10 @@ And yes, your condition can depend on redux state as well
 ```jsx
 render() {
   return (
-    <CFSelect selector={state => state.login.isLoggedIn}>
+    <FSelect selector={state => state.login.isLoggedIn}>
       <span>Welcome XXX</span>
       <span>You rock!</span>
-    </CFSelect>
+    </FSelect>
   )
 }
 ```
@@ -427,12 +427,12 @@ Your Element will only render if all of values in array or object evaluates to t
 ```jsx
 render() {
   return (
-    <CFSelect
+    <FSelect
       selector={
         [state => state.login.isLoggedIn, state => !state.login.isBanned]}>
       <span>Welcome XXX</span>
       <span>You rock!</span>
-    </CFSelect>
+    </FSelect>
   )
 }
 ```
@@ -442,29 +442,29 @@ To Conditionally Render with falsy values, use `selectorNot` props. Like selecto
 ```jsx
 render() {
   return (
-    <CFSelect
+    <FSelect
     selectorNot={state => state.login.isBanned}
     selector={state => state.login.isLoggedIn}>
       <span>Welcome XXX</span>
       <span>You rock!</span>
-    </CFSelect>
+    </FSelect>
   )
 }
 ```
 
-WARNING: If your Conditional Element Render depends on the redux state, you must pass a function as selector or selectorNot (or function as part of array or object values). Failing to do so will cause your CFSelect to not properly re-render the child component unless its parent Component re-renders.
+WARNING: If your Conditional Element Render depends on the redux state, you must pass a function as selector or selectorNot (or function as part of array or object values). Failing to do so will cause your FSelect to not properly re-render the child component unless its parent Component re-renders.
 
 For instance: DO NOT DO
 
 ```jsx
 render() {
   return (
-    <CFSelect
-    // Do not do this, your child component will not re-render unless parent component of CFSelect re-renders
+    <FSelect
+    // Do not do this, your child component will not re-render unless parent component of FSelect re-renders
     selector={getState().login.isLoggedIn}>
       <span>Welcome XXX</span>
       <span>You rock!</span>
-    </CFSelect>
+    </FSelect>
   )
 }
 ```
@@ -472,12 +472,12 @@ render() {
 As a fallback, not providing selector props will render props with root state
 
 ```jsx
-return <CFSelect>{state => <span>Welcome {state.login.email}</span>}</CFSelect>
+return <FSelect>{state => <span>Welcome {state.login.email}</span>}</FSelect>
 ```
 
 ## Avoiding Rerender
 
-CFSelect already optimizes your code such that re-render is localized to the specific component rather than entire component that you have connected.
+FSelect already optimizes your code such that re-render is localized to the specific component rather than entire component that you have connected.
 
 However, to further optimize and avoid unneccesary creation of arrow functions and re-renders when the parent component re-renders, you can use popular method that React community uses
 
@@ -485,9 +485,9 @@ However, to further optimize and avoid unneccesary creation of arrow functions a
 class App extends React.Component {
   render() {
     return (
-      <CFSelect selector={state => state.login.email}>
+      <FSelect selector={state => state.login.email}>
         {this.renderEmailText}
-      </CFSelect>
+      </FSelect>
     )
   }
   renderEmailText = email => {
@@ -503,9 +503,9 @@ Note that using above method will only re-render EmailText when email changes, t
 class App extends React.Component {
   render() {
     return (
-      <CFSelect selector={state => state.login.email}>
+      <FSelect selector={state => state.login.email}>
         {this.renderEmailText}
-      </CFSelect>
+      </FSelect>
     )
   }
   renderEmailText = email => {
@@ -520,14 +520,14 @@ class App extends React.Component {
 class App extends React.Component {
   render() {
     return (
-      <CFSelect
+      <FSelect
         selector={state => ({
           name: this.state.name,
           email: state.login.email,
         })}
       >
         {this.renderEmailText}
-      </CFSelect>
+      </FSelect>
     )
   }
   renderEmailText = ({ name, email }) => {
@@ -540,17 +540,17 @@ class App extends React.Component {
 }
 ```
 
-### What does CF stand for?
+### What does F stand for?
 
-CF stands for CodeFusion. We create premium web and mobile ordering solutions for restaurants.
-Please visit https://codefusion.tech for more information.
+F stands for Foodly. We create online ordering platform for restaurants.
+Please visit https://foodly.tech for more information.
 
 ## Takeaways
 
 1. Import dispatch from the store
 2. Use getState from the store for state dependent event, or use actions with getState built in.
-3. Use CFSelect for UI that depends on the redux state.
-4. Conditional Element Render using CFSelect
+3. Use FSelect for UI that depends on the redux state.
+4. Conditional Element Render using FSelect
 
 ## Future Roadmap
 
