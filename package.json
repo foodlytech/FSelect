@@ -1,6 +1,6 @@
 {
   "name": "fselect",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "main": "dist/index.js",
   "repository": "git@github.com:foodlytech/FSelect.git",
   "author": "Eric Kim <bosung90@gmail.com>",
